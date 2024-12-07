@@ -29,28 +29,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Step 4: Create environment file with secrets
-      - name: Create environment file
+      # Step 4: Replace placeholders in `environment.prod.ts`
+      - name: Inject environment variables
         run: |
-          echo "export const environment = {
-            production: true,
-            firebaseConfig: {
-              apiKey: '${{ secrets.FIREBASE_API_KEY }}',
-              authDomain: '${{ secrets.FIREBASE_AUTH_DOMAIN }}',
-              databaseURL: '${{ secrets.DATABASE_URL }}',
-              projectId: '${{ secrets.PROJECT_ID }}',
-              storageBucket: '${{ secrets.STORAGE_BUCKET }}',
-              messagingSenderId: '${{ secrets.MSG_SENDER_ID }}',
-              appId: '${{ secrets.APP_ID }}',
-              measurementId: '${{ secrets.MEASUREMENT_ID }}'
-            },
-            entertaiment: {
-              movieApiUrl: '${{ secrets.MOVIE_API_URL }}',
-              showApiUrl: '${{ secrets.SHOW_API_URL }}',
-              feedBApiUrl: '${{ secrets.FEED_API_URL }}',
-              userApiUrl: '${{ secrets.USER_API_URL }}'
-            }
-          };" > src/environments/environment.prod.ts
+          sed -i "s|__API_KEY__|${{ secrets.FIREBASE_API_KEY }}|g" src/environments/environment.prod.ts
+          sed -i "s|__AUTH_DOMAIN__|${{ secrets.FIREBASE_AUTH_DOMAIN }}|g" src/environments/environment.prod.ts
+          sed -i "s|__DATABASE_URL__|${{ secrets.DATABASE_URL }}|g" src/environments/environment.prod.ts
+          sed -i "s|__PROJECT_ID__|${{ secrets.PROJECT_ID }}|g" src/environments/environment.prod.ts
+          sed -i "s|__STORAGE_BUCKET__|${{ secrets.STORAGE_BUCKET }}|g" src/environments/environment.prod.ts
+          sed -i "s|__MSG_SENDER_ID__|${{ secrets.MSG_SENDER_ID }}|g" src/environments/environment.prod.ts
+          sed -i "s|__APP_ID__|${{ secrets.APP_ID }}|g" src/environments/environment.prod.ts
+          sed -i "s|__MEASUREMENT_ID__|${{ secrets.MEASUREMENT_ID }}|g" src/environments/environment.prod.ts
+          sed -i "s|__MOVIE_API_URL__|${{ secrets.MOVIE_API_URL }}|g" src/environments/environment.prod.ts
+          sed -i "s|__SHOW_API_URL__|${{ secrets.SHOW_API_URL }}|g" src/environments/environment.prod.ts
+          sed -i "s|__FEED_API_URL__|${{ secrets.FEED_API_URL }}|g" src/environments/environment.prod.ts
+          sed -i "s|__USER_API_URL__|${{ secrets.USER_API_URL }}|g" src/environments/environment.prod.ts
 
       # Step 5: Build the Angular application
       - name: Build Angular App

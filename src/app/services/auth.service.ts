@@ -16,10 +16,10 @@ import { switchMap, catchError } from 'rxjs/operators'; // Import operators from
 export class AuthService {
 
   userDetails!: UserRecord;
-  UserAPI = `${environment.entertaiment.userApiUrl}`; // User API URL
+  UserAPI:string;
 
   constructor(private userService: UserService, private afAuth: AngularFireAuth, private sharedService: SharedService) {
-    
+    this.UserAPI= `${environment.entertaiment.userApiUrl}`; // User API URL
   }
 
   // Google sign-in

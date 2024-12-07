@@ -9,10 +9,10 @@ import { environment } from '../../environments/environment';
 })
 export class MovieService 
 {
-  apiUrl= `${environment.entertaiment.movieApiUrl}`;
+  apiUrl:string;
   constructor(private hClient:HttpClient) 
   {
-   
+    this.apiUrl = environment.entertaiment.movieApiUrl; 
   }
 
   getMovies():Observable<Movie[]>

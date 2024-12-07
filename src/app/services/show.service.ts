@@ -9,9 +9,10 @@ import { environment } from '../../environments/environment';
 })
 export class ShowService {
 
-  apiUrl=`${environment.entertaiment.showApiUrl}`;
+  apiUrl:string;
   constructor(private hClient:HttpClient) 
   {
+    this.apiUrl = environment.entertaiment.showApiUrl; 
     this.getShows();
   }
 

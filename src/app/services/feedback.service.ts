@@ -10,9 +10,9 @@ import { FeedBack, wFeedType } from '../Models/feed.model';
 export class FeedbackService implements OnInit {
 
   feed!:wFeedType
-    FeedAPI = `${environment.entertaiment.feedBApiUrl}`;
+    FeedAPI:string;
 
-  constructor(private hClient: HttpClient) { }
+  constructor(private hClient: HttpClient) { this.FeedAPI = environment.entertaiment.feedBApiUrl; }
 
   ngOnInit(): void {
     this.getFeedBacks();

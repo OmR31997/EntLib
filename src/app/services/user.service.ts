@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { environment } from '../../environments/environment';
 import { LoginRequest, UserRecord, UserUpdate } from '../Models/user.model';
 import { Observable } from 'rxjs';
@@ -7,16 +7,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements OnInit
+export class UserService
 {
 
-  UserAPI = `${environment.entertaiment.userApiUrl}`;
-  constructor(private hClient:HttpClient) { }
+  UserAPI:any;
+  constructor(private hClient:HttpClient) { this.UserAPI = environment.entertaiment.userApiUrl; }
 
-  ngOnInit(): void 
-  {
-    
-  }
 
   usersGet():Observable<UserRecord[]>
   {

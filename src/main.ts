@@ -1,8 +1,27 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-platformBrowserDynamic().bootstrapModule(AppModule, {
-  ngZoneEventCoalescing: true
-})
-  .catch(err => console.error(err));
+// Load config.json at runtime
+fetch('./assets/config.json')
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Failed to fetch config.json: ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then((config) => {
+    // Assign values from config.json to the environment
+    environment.firebaseConfig = config.firebaseConfig;
+    environment.entertaiment = config.entertaiment;
+
+    // Bootstrap the Angular application
+    platformBrowserDynamic()
+      .bootstrapModule(AppModule, {
+        ngZoneEventCoalescing: true
+      })
+      .catch((err) => console.error(err));
+  })
+  .catch((err) => {
+    console.error('Error loading config.json:', err);
+  });
