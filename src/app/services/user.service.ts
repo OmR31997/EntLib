@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class UserService
 {
 
-  UserAPI:any;
+  UserAPI:string;
   constructor(private hClient:HttpClient) { this.UserAPI = environment.entertaiment.userApiUrl; }
 
 
