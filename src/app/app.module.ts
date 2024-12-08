@@ -59,25 +59,17 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 })
 export class AppModule 
 { 
-  constructor()
-  {
-    if (environment.firebaseConfig) 
-    {
-      // Initialize Firebase with the config from the environment file
+  constructor() {
+    if (environment.firebaseConfig) {
       const app = initializeApp(environment.firebaseConfig);
-
-      // Initialize Authentication
       const auth = getAuth(app);
 
-      if (environment.production) 
-      {  // Only enable analytics in production
+      if (environment.production) {
         const analytics = getAnalytics(app);
         console.log('Analytics initialized in production');
       }
-    } 
-    else 
-    {
-      throw new Error('Environment "entertaiment" is not defined');
+    } else {
+      throw new Error('Firebase configuration is not set.');
     }
   }
 }

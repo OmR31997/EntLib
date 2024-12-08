@@ -29,28 +29,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Step 4: Replace placeholders in `environment.prod.ts`
-      - name: Inject environment variables
+      - name: Set Firebase Config as Environment Variables
         run: |
-          echo "export const environment = {
-            production: true,
-            firebaseConfig: {
-              apiKey: '${{ secrets.FIREBASE_API_KEY }}',
-              authDomain: '${{ secrets.FIREBASE_AUTH_DOMAIN }}',
-              databaseURL: '${{ secrets.DATABASE_URL }}',
-              projectId: '${{ secrets.PROJECT_ID }}',
-              storageBucket: '${{ secrets.STORAGE_BUCKET }}',
-              messagingSenderId: '${{ secrets.MSG_SENDER_ID }}',
-              appId: '${{ secrets.APP_ID }}',
-              measurementId: '${{ secrets.MEASUREMENT_ID }}'
-            },
-            entertaiment: {
-              movieApiUrl: '${{ secrets.MOVIE_API_URL }}',
-              showApiUrl: '${{ secrets.SHOW_API_URL }}',
-              feedBApiUrl: '${{ secrets.FEED_API_URL }}',
-              userApiUrl: '${{ secrets.USER_API_URL }}'
-            }
-          };" > src/environments/environment.prod.ts
+          echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> $GITHUB_ENV
+          echo "FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }}" >> $GITHUB_ENV
+          echo "FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> $GITHUB_ENV
+          echo "FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }}" >> $GITHUB_ENV
+          echo "FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}" >> $GITHUB_ENV
+          echo "FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> $GITHUB_ENV
+          echo "FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }}" >> $GITHUB_ENV
+          echo "MOVIE_API_URL=${{ secrets.MOVIE_API_URL }}" >> $GITHUB_ENV
+          echo "SHOW_API_URL=${{ secrets.SHOW_API_URL }}" >> $GITHUB_ENV
+          echo "FEED_API_URL=${{ secrets.FEED_API_URL }}" >> $GITHUB_ENV
+          echo "USER_API_URL=${{ secrets.USER_API_URL }}" >> $GITHUB_ENV
 
       # Step 5: Build the Angular application
       - name: Build Angular App

@@ -18,6 +18,6 @@ export interface EntertaimentConfig {
 
 export interface Environment {
   production: boolean;
-  firebaseConfig?: FirebaseConfig;
-  entertaiment?: EntertaimentConfig;
+  firebaseConfig: FirebaseConfig;
+  entertaiment: EntertaimentConfig;
 }
