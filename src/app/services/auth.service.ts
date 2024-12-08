@@ -19,7 +19,14 @@ export class AuthService {
   UserAPI:string;
 
   constructor(private userService: UserService, private afAuth: AngularFireAuth, private sharedService: SharedService) {
-    this.UserAPI= `${environment.entertaiment.userApiUrl}`; // User API URL
+    if (environment.entertaiment) 
+      {
+        this.UserAPI = environment.entertaiment.userApiUrl;
+      } 
+      else 
+      {
+        throw new Error('Environment "entertaiment" is not defined');
+      }
   }
 
   // Google sign-in

@@ -12,7 +12,14 @@ export class ShowService {
   apiUrl:string;
   constructor(private hClient:HttpClient) 
   {
-    this.apiUrl = environment.entertaiment.showApiUrl; 
+    if (environment.entertaiment) 
+      {
+        this.apiUrl = environment.entertaiment.showApiUrl;
+      } 
+      else 
+      {
+        throw new Error('Environment "entertaiment" is not defined');
+      }
     this.getShows();
   }
 

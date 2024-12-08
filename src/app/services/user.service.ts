@@ -10,8 +10,18 @@ import { Observable } from 'rxjs';
 export class UserService
 {
 
-  UserAPI:string;
-  constructor(private hClient:HttpClient) { this.UserAPI = environment.entertaiment.userApiUrl; }
+  UserAPI?:string;
+  constructor(private hClient:HttpClient) 
+  { 
+    if (environment.entertaiment) 
+    {
+      this.UserAPI = environment.entertaiment.userApiUrl;
+    } 
+    else 
+    {
+      throw new Error('Environment "entertaiment" is not defined');
+    }
+  }
 
 
   usersGet():Observable<UserRecord[]>

@@ -1,7 +1,21 @@
-import { Environment } from "../app/Models/environment.model";
+import { Environment } from '../app/Models/environment.model';
 
-export const environment:Environment = {
+export const environment: Partial<Environment> = {
   production: true,
-  firebaseConfig: {} as any, // Will be populated from config.json
-  entertaiment: {} as any,   // Will be populated from config.json
+  firebaseConfig: {
+    apiKey: '',
+    authDomain: '',
+    databaseURL: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: '',
+    appId: '',
+    measurementId: ''
+  },
+  entertaiment: {
+    movieApiUrl: '',
+    showApiUrl: '',
+    feedBApiUrl: '',
+    userApiUrl: ''
+  }
 };

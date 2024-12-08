@@ -1,7 +1,13 @@
+# Normalize all text files
 * text=auto
-*.css text
-*.js text
-*.html text
-*.ts text
-*.json text
-*.txt text
+
+# Enforce LF for specific file types
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+
+# Ensure .gitattributes itself has LF line endings
+.gitattributes text eol=lf

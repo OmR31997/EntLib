@@ -50,7 +50,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig ?? {}),
     AngularFireAuthModule,
     ReactiveFormsModule,
   ],
@@ -61,16 +61,23 @@ export class AppModule
 { 
   constructor()
   {
-    // Initialize Firebase with the config from the environment file
-    const app = initializeApp(environment.firebaseConfig);
+    if (environment.firebaseConfig) 
+    {
+      // Initialize Firebase with the config from the environment file
+      const app = initializeApp(environment.firebaseConfig);
 
-     // Initialize Authentication
-    const auth = getAuth(app);
+      // Initialize Authentication
+      const auth = getAuth(app);
 
-     if (environment.production) 
-    {  // Only enable analytics in production
-      const analytics = getAnalytics(app);
-      console.log('Analytics initialized in production');
+      if (environment.production) 
+      {  // Only enable analytics in production
+        const analytics = getAnalytics(app);
+        console.log('Analytics initialized in production');
+      }
+    } 
+    else 
+    {
+      throw new Error('Environment "entertaiment" is not defined');
     }
   }
 }

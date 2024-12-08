@@ -43,13 +43,21 @@ export class SignupComponent implements OnInit
     this.updatePhoneNumberValidation('in');
   }
 
-  initializeRecaptcha() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(environment.firebaseConfig); // Initialize Firebase if not already initialized
-    }
-    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-      size: 'invisible'
-    });
+  initializeRecaptcha() 
+  {
+    if (environment.firebaseConfig) 
+      {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(environment.firebaseConfig); // Initialize Firebase if not already initialized
+        }
+        this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+          size: 'invisible'
+        });
+      } 
+      else 
+      {
+        throw new Error('Environment "entertaiment" is not defined');
+      }
   }
 
   UserValidation() {

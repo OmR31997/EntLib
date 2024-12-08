@@ -12,7 +12,14 @@ export class MovieService
   apiUrl:string;
   constructor(private hClient:HttpClient) 
   {
-    this.apiUrl = environment.entertaiment.movieApiUrl; 
+    if (environment.entertaiment) 
+      {
+        this.apiUrl = environment.entertaiment.movieApiUrl;
+      } 
+      else 
+      {
+        throw new Error('Environment "entertaiment" is not defined');
+      }
   }
 
   getMovies():Observable<Movie[]>

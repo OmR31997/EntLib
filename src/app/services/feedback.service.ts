@@ -12,7 +12,17 @@ export class FeedbackService implements OnInit {
   feed!:wFeedType
     FeedAPI:string;
 
-  constructor(private hClient: HttpClient) { this.FeedAPI = environment.entertaiment.feedBApiUrl; }
+  constructor(private hClient: HttpClient) 
+  { 
+    if (environment.entertaiment) 
+      {
+        this.FeedAPI = environment.entertaiment.feedBApiUrl;
+      } 
+      else 
+      {
+        throw new Error('Environment "entertaiment" is not defined');
+      }
+  }
 
   ngOnInit(): void {
     this.getFeedBacks();
