@@ -8,6 +8,7 @@
 *.ts text eol=lf
 *.json text eol=lf
 *.txt text eol=lf
+*.json text eol=lf
 
 # Ensure .gitattributes itself has LF line endings
 .gitattributes text eol=lf

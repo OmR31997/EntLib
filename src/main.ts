@@ -2,7 +2,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-// Load config.json at runtime (if required)
+// Load config.json at runtime
 fetch('./assets/config.json')
   .then((response) => {
     if (!response.ok) {
@@ -11,22 +11,18 @@ fetch('./assets/config.json')
     return response.json();
   })
   .then((config) => {
-    // Set Firebase and other configurations dynamically from config.json
-    environment.firebaseConfig = {
-      apiKey: process.env['FIREBASE_API_KEY'] as string,
-      authDomain: process.env['FIREBASE_AUTH_DOMAIN'] as string,
-      databaseURL: process.env['FIREBASE_DATABASE_URL'] as string,
-      projectId: process.env['FIREBASE_PROJECT_ID'] as string,
-      storageBucket: process.env['FIREBASE_STORAGE_BUCKET'] as string,
-      messagingSenderId: process.env['FIREBASE_MESSAGING_SENDER_ID'] as string,
-      appId: process.env['FIREBASE_APP_ID'] as string,
-      measurementId: process.env['FIREBASE_MEASUREMENT_ID'] as string
-    };
-
-    // Set entertainment API URLs dynamically
+    // Log config to check if values are fetched correctly
+    console.log('Fetched config:', config);
+    
+    // Assign values from config.json to the environment
+    environment.firebaseConfig = config.firebaseConfig;
     environment.entertaiment = config.entertaiment;
 
-    // Bootstrap Angular app
+    // Check environment variables before bootstrapping
+    console.log('Firebase Config:', environment.firebaseConfig);
+    console.log('Entertainment Config:', environment.entertaiment);
+
+    // Bootstrap the Angular application
     platformBrowserDynamic()
       .bootstrapModule(AppModule)
       .catch((err) => console.error(err));
