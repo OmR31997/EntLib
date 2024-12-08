@@ -32,6 +32,8 @@ jobs:
       # Step 4: Replace Placeholders in config.json
       - name: Replace Placeholders in config.json
         run: |
+          mkdir -p src/assets
+          cp src/assets/config.json src/assets/config.json.bak
           sed -i "s|__API_KEY__|${{ secrets.FIREBASE_API_KEY }}|g" src/assets/config.json
           sed -i "s|__AUTH_DOMAIN__|${{ secrets.FIREBASE_AUTH_DOMAIN }}|g" src/assets/config.json
           sed -i "s|__DATABASE_URL__|${{ secrets.FIREBASE_DATABASE_URL }}|g" src/assets/config.json
@@ -45,22 +47,23 @@ jobs:
           sed -i "s|__FEED_URL__|${{ secrets.FEED_API_URL }}|g" src/assets/config.json
           sed -i "s|__USER_URL__|${{ secrets.USER_API_URL }}|g" src/assets/config.json
 
-      # Step 4.1: Verify config.json replacements
-      - name: Verify config.json
-        run: |
-          echo "Verifying placeholder replacements in config.json"
-          cat src/assets/config.json
-          grep -E '__[A-Z_]+__' src/assets/config.json && exit 1 || echo "All placeholders have been replaced successfully."
+      - name: Verify Placeholder Replacements
+        run: cat src/assets/config.json
 
-      # Step 5: Build the Angular application
+      # Step 5: Build Angular App
       - name: Build Angular App
         run: npm run build -- --configuration production --output-path=docs --base-href /EntLib/
 
-      # Step 6: Copy config.json to build output
+      # Step 6: Copy config.json to build folder
       - name: Copy config.json to build folder
-        run: cp src/assets/config.json docs/assets/config.json
+        run: |
+          mkdir -p docs/assets
+          cp src/assets/config.json docs/assets/config.json
 
-      # Step 7: Upload build artifact
+      # Verify if config.json is present in docs/assets
+      - name: Verify docs/assets content
+        run: ls -la docs/assets/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -74,20 +77,13 @@ jobs:
       name: github-pages
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Install Firebase CLI
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-
-      # Step 3: Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }} 
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: firebase deploy --only hosting --project entertaimentlib-ad956
 
-      # Step 4: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4

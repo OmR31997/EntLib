@@ -2,7 +2,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-fetch('/assets/config.json')
+fetch('assets/config.json') // Use relative path here
   .then((response) => response.json())
   .then((config) => {
     console.log('Fetched config:', config);
