@@ -12,7 +12,7 @@ export interface FirebaseConfig {
 export interface EntertaimentConfig {
   movieApiUrl: string;
   showApiUrl: string;
-  feedBApiUrl: string;
+  feedApiUrl: string;
   userApiUrl: string;
 }
 

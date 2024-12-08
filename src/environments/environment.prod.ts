@@ -15,7 +15,7 @@ export const environment: Partial<Environment> = {
   entertaiment: {
     movieApiUrl: '',
     showApiUrl: '',
-    feedBApiUrl: '',
+    feedApiUrl: '',
     userApiUrl: ''
   }
 };

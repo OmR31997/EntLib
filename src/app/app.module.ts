@@ -50,7 +50,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig??{}),
+    AngularFireModule.initializeApp(environment.firebaseConfig ?? {}),
     AngularFireAuthModule,
     ReactiveFormsModule,
   ],
@@ -61,9 +61,10 @@ export class AppModule
 { 
   constructor() {
     if (environment.firebaseConfig) {
+      // Initialize Firebase
       const app = initializeApp(environment.firebaseConfig);
       const auth = getAuth(app);
-
+      
       if (environment.production) {
         const analytics = getAnalytics(app);
         console.log('Analytics initialized in production');

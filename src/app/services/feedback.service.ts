@@ -16,7 +16,7 @@ export class FeedbackService implements OnInit {
   { 
     if (environment.entertaiment) 
       {
-        this.FeedAPI = environment.entertaiment.feedBApiUrl;
+        this.FeedAPI = environment.entertaiment.feedApiUrl;
       } 
       else 
       {
