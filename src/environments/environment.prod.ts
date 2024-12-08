@@ -1,21 +1,19 @@
-import { Environment } from "../app/Models/environment.model";
-
-export const environment: Environment = {
+export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: process.env['FIREBASE_API_KEY'] as string,
-    authDomain: process.env['FIREBASE_AUTH_DOMAIN'] as string,
-    databaseURL: process.env['FIREBASE_DATABASE_URL'] as string,
-    projectId: process.env['FIREBASE_PROJECT_ID'] as string,
-    storageBucket: process.env['FIREBASE_STORAGE_BUCKET'] as string,
-    messagingSenderId: process.env['FIREBASE_MESSAGING_SENDER_ID'] as string,
-    appId: process.env['FIREBASE_APP_ID'] as string,
-    measurementId: process.env['FIREBASE_MEASUREMENT_ID'] as string
+    apiKey: '__API_KEY__',  // Placeholder that will be replaced at build time
+    authDomain: '__AUTH_DOMAIN__',
+    databaseURL: '__DATABASE_URL__',
+    projectId: '__PROJECT_ID__',
+    storageBucket: '__STORAGE_BUCKET__',
+    messagingSenderId: '__MSG_SENDER_ID__',
+    appId: '__APP_ID__',
+    measurementId: '__MEASUREMENT_ID__'
   },
   entertaiment: {
-    movieApiUrl: process.env['MOVIE_API_URL'] as string,
-    showApiUrl: process.env['SHOW_API_URL'] as string,
-    feedBApiUrl: process.env['FEED_API_URL'] as string,
-    userApiUrl: process.env['USER_API_URL'] as string
+    movieApiUrl: '__MOVIE_URL__',
+    showApiUrl: '__SHOW_URL__',
+    feedBApiUrl: '__FEED_URL__',
+    userApiUrl: '__USER_URL__'
   }
 };
