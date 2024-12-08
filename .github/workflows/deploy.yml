@@ -28,7 +28,6 @@ jobs:
 
       - name: Replace Placeholders in config.json
         run: |
-          mkdir -p src/assets
           sed -i "s|__API_KEY__|${{ secrets.FIREBASE_API_KEY }}|g" src/assets/config.json
           sed -i "s|__AUTH_DOMAIN__|${{ secrets.FIREBASE_AUTH_DOMAIN }}|g" src/assets/config.json
           sed -i "s|__DATABASE_URL__|${{ secrets.FIREBASE_DATABASE_URL }}|g" src/assets/config.json
@@ -41,6 +40,7 @@ jobs:
           sed -i "s|__SHOW_URL__|${{ secrets.SHOW_API_URL }}|g" src/assets/config.json
           sed -i "s|__FEED_URL__|${{ secrets.FEED_API_URL }}|g" src/assets/config.json
           sed -i "s|__USER_URL__|${{ secrets.USER_API_URL }}|g" src/assets/config.json
+
 
       - name: Build Angular App
         run: npm run build -- --configuration production --output-path=docs --base-href /EntLib/

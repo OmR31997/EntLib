@@ -11,16 +11,13 @@ fetch('./assets/config.json')
     return response.json();
   })
   .then((config) => {
-    // Log config to check if values are fetched correctly
-    console.log('Fetched config:', config);
     
     // Assign values from config.json to the environment
     environment.firebaseConfig = config.firebaseConfig;
     environment.entertaiment = config.entertaiment;
 
     // Check environment variables before bootstrapping
-    console.log('Firebase Config:', environment.firebaseConfig);
-    console.log('Entertainment Config:', environment.entertaiment);
+    console.log('Environment Config:', environment);
 
     // Bootstrap the Angular application
     platformBrowserDynamic()
