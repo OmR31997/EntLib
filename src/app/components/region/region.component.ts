@@ -179,7 +179,7 @@ export class RegionComponent implements OnInit
       (resShows: Show[]) => 
       {
         this.shows = resShows;
-        this.getRegion(this.movies);
+        this.getRegion(this.shows);
         // Initialize current index for each region
         this.regions.forEach(region => 
         {

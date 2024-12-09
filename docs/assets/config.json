@@ -10,9 +10,9 @@
     "measurementId": "__MEASUREMENT_ID__"
   },
   "entertaiment": {
-    "movieApiUrl": "__MOVIE_URL__",
-    "showApiUrl": "__SHOW_URL__",
-    "feedBApiUrl": "__FEED_URL__",
-    "userApiUrl": "__USER_URL__"
+    "movieApiUrl": "https://web-api-32df.onrender.com/api/movies",
+    "showApiUrl": "https://web-api-32df.onrender.com/api/shows",
+    "feedBApiUrl": "https://web-api-32df.onrender.com/api/feedbacks",
+    "userApiUrl": "https://web-api-32df.onrender.com/api"
   }
 }
