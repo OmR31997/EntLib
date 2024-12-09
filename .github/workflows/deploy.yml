@@ -91,7 +91,7 @@ jobs:
       # Step 3: Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ vars.FIREBASE_TOKEN }}
         run: firebase deploy --only hosting --project entertaimentlib-ad956
 
       # Step 4: Deploy to GitHub Pages
