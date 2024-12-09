@@ -9,20 +9,21 @@ fetch('./assets/config.json')
     }
     return response.json();
   })
-  .then((config) => {
-    // Ensure config contains the necessary fields
-    if (!config.firebaseConfig || !config.entertaiment) {
+  .then((config) => 
+  {
+    // Ensure config is not empty and contains all required fields
+    if (!config.firebaseConfig || !config.entertaiment) 
+    {
       throw new Error('Invalid configuration file.');
     }
-
-    // Assign values from config.json to environment
+    // Assign values from config.json to the environment
     environment.firebaseConfig = config.firebaseConfig;
     environment.entertaiment = config.entertaiment;
 
-    // Log the environment values
+    // Log once to verify environment values
     console.log('Environment Config:', environment);
 
-    // Bootstrap Angular app
+    // Bootstrap the Angular application only once
     return platformBrowserDynamic().bootstrapModule(AppModule);
   })
   .catch((err) => {

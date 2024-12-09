@@ -29,7 +29,7 @@
             "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "baseHref": "/EntLib/",
+            "baseHref": "/My-Projects/",
             "polyfills": [
               "zone.js",
               "src/polyfills.ts"
@@ -38,8 +38,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets/"
+                "input": "public"
               }
             ],
             "styles": [

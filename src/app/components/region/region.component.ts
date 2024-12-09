@@ -175,20 +175,30 @@ export class RegionComponent implements OnInit
 
   getShows():void
   {
-
+    this.showService.getShows().subscribe(
+      (resShows: Show[]) => 
+      {
+        this.shows = resShows;
+        this.getRegion(this.movies);
+        // Initialize current index for each region
+        this.regions.forEach(region => 
+        {
+          this.startAutoSlide(region);
+          this.currentIndex[region] = 1;
+          this.initalVisibleItems[region] = this.shows.length;
+        });
+      },
+      error => {
+        console.error('Error fetching movies:', error);
+      }
+    );
   }
 
-  // getCurrentVisibleCount(region:string)
-  // {
-  //   return this.currentIndex[region] === 0 ? this.initalVisibleItems[region] : 1;
-  // }
 
   getEntertaimentList(region:string): (Movie | Show)[]
   {
     switch(this.route.url)
     {
-      case "/moviess":
-        return this.movies.filter(movie => movie.location === region);
       case "/movies":
         return this.movies.filter(movie => movie.location === region);
       case "/shows":
