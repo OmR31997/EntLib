@@ -60,19 +60,19 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 export class AppModule 
 { 
   constructor() {
-    if (environment.firebaseConfig) 
-    {
-      // Check if Firebase app is already initialized
-      const app = !getApps().length ? initializeApp(environment.firebaseConfig):getApps()[0];
-      
-      const auth = getAuth(app);
-      if (environment.production) 
-      {
-        const analytics = getAnalytics(app);
-        console.log('Analytics initialized in production');
+    // Initialize Firebase only if no app is initialized yet
+    if (!getApps().length) {
+      // Ensure firebaseConfig is defined before initializing
+      if (environment.firebaseConfig) {
+        initializeApp(environment.firebaseConfig); // Initialize Firebase
+      } else {
+        console.error("Firebase config is missing!");
       }
-    } else {
-      throw new Error('Firebase configuration is not set.');
+    }
+    const auth = getAuth();
+    if (environment.production) {
+      const analytics = getAnalytics();
+      console.log('Analytics initialized in production');
     }
   }
 }
