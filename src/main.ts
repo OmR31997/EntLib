@@ -9,7 +9,14 @@ fetch('./assets/config.json')
     }
     return response.json();
   })
-  .then((config) => {
+  .then((config) => 
+  {
+    // Ensure config is not empty and contains all required fields
+    if (!config.firebaseConfig || !config.entertaiment) 
+    {
+      throw new Error('Invalid configuration file.');
+    }
+    
     // Assign values from config.json to the environment
     environment.firebaseConfig = config.firebaseConfig;
     environment.entertaiment = config.entertaiment;

@@ -21,11 +21,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AuthService } from './services/auth.service';
-import { LoadingInterceptor } from './interceptor/loading.interceptor';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
+import { AuthService } from './services/auth.service';
+import { LoadingInterceptor } from './interceptor/loading.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
@@ -60,12 +60,14 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 export class AppModule 
 { 
   constructor() {
-    if (environment.firebaseConfig) {
-      // Initialize Firebase
-      const app = initializeApp(environment.firebaseConfig);
-      const auth = getAuth(app);
+    if (environment.firebaseConfig) 
+    {
+      // Check if Firebase app is already initialized
+      const app = !getApps().length ? initializeApp(environment.firebaseConfig):getApps()[0];
       
-      if (environment.production) {
+      const auth = getAuth(app);
+      if (environment.production) 
+      {
         const analytics = getAnalytics(app);
         console.log('Analytics initialized in production');
       }
