@@ -5,17 +5,31 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+  pages: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.19.1'
+
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm ci --engine-strict=false
 
+      # Step 4: Verify File Exists
       - name: Verify File Exists
         run: |
           if [ ! -f src/assets/config.json ]; then 
@@ -26,13 +40,98 @@ jobs:
             cat src/assets/config.json
           fi
 
+      # Step 5: Set environment variables and replace placeholders
       - name: Set environment variables and replace placeholders
         run: |
           API_KEY="${{ secrets.FIREBASE_API_KEY }}"
-          API_KEY_ESCAPED=$(printf '%s\n' "$API_KEY" | sed 's/[&/\]/\\&/g')
-          sed -i 's|__API_KEY__|'"$API_KEY_ESCAPED"'|g' src/assets/config.json
+          AUTH_DOMAIN="${{ secrets.FIREBASE_AUTH_DOMAIN }}"
+          DATABASE_URL="${{ secrets.FIREBASE_DATABASE_URL }}"
+          PROJECT_ID="${{ secrets.FIREBASE_PROJECT_ID }}"
+          STORAGE_BUCKET="${{ secrets.FIREBASE_STORAGE_BUCKET }}"
+          MSG_SENDER_ID="${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}"
+          APP_ID="${{ secrets.FIREBASE_APP_ID }}"
+          MEASUREMENT_ID="${{ secrets.FIREBASE_MEASUREMENT_ID }}"
+          MOVIE_URL="${{ secrets.MOVIE_API_URL }}"
+          SHOW_URL="${{ secrets.SHOW_API_URL }}"
+          FEED_URL="${{ secrets.FEED_API_URL }}"
+          USER_URL="${{ secrets.USER_API_URL }}"
 
+          # Escape special characters in environment variables
+          API_KEY_ESCAPED=$(printf '%s\n' "$API_KEY" | sed 's/[&/\]/\\&/g')
+          AUTH_DOMAIN_ESCAPED=$(printf '%s\n' "$AUTH_DOMAIN" | sed 's/[&/\]/\\&/g')
+          DATABASE_URL_ESCAPED=$(printf '%s\n' "$DATABASE_URL" | sed 's/[&/\]/\\&/g')
+          PROJECT_ID_ESCAPED=$(printf '%s\n' "$PROJECT_ID" | sed 's/[&/\]/\\&/g')
+          STORAGE_BUCKET_ESCAPED=$(printf '%s\n' "$STORAGE_BUCKET" | sed 's/[&/\]/\\&/g')
+          MSG_SENDER_ID_ESCAPED=$(printf '%s\n' "$MSG_SENDER_ID" | sed 's/[&/\]/\\&/g')
+          APP_ID_ESCAPED=$(printf '%s\n' "$APP_ID" | sed 's/[&/\]/\\&/g')
+          MEASUREMENT_ID_ESCAPED=$(printf '%s\n' "$MEASUREMENT_ID" | sed 's/[&/\]/\\&/g')
+          MOVIE_URL_ESCAPED=$(printf '%s\n' "$MOVIE_URL" | sed 's/[&/\]/\\&/g')
+          SHOW_URL_ESCAPED=$(printf '%s\n' "$SHOW_URL" | sed 's/[&/\]/\\&/g')
+          FEED_URL_ESCAPED=$(printf '%s\n' "$FEED_URL" | sed 's/[&/\]/\\&/g')
+          USER_URL_ESCAPED=$(printf '%s\n' "$USER_URL" | sed 's/[&/\]/\\&/g')
+
+          # Replace placeholders in src/assets/config.json
+          sed -i 's|__API_KEY__|'"$API_KEY_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__AUTH_DOMAIN__|'"$AUTH_DOMAIN_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__DATABASE_URL__|'"$DATABASE_URL_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__PROJECT_ID__|'"$PROJECT_ID_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__STORAGE_BUCKET__|'"$STORAGE_BUCKET_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__MSG_SENDER_ID__|'"$MSG_SENDER_ID_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__APP_ID__|'"$APP_ID_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__MEASUREMENT_ID__|'"$MEASUREMENT_ID_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__MOVIE_URL__|'"$MOVIE_URL_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__SHOW_URL__|'"$SHOW_URL_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__FEED_URL__|'"$FEED_URL_ESCAPED"'|g' src/assets/config.json
+          sed -i 's|__USER_URL__|'"$USER_URL_ESCAPED"'|g' src/assets/config.json
+
+      # Step 6: Verify Placeholder Replacement
       - name: Verify Placeholder Replacement
         run: |
           cat src/assets/config.json
-          grep -E '__[A-Z_]+__' src/assets/config.json && exit 1 || echo "All placeholders replaced successfully."
+          grep -E '__[A-Z_]+__' src/assets/config.json && exit 1 || echo "All placeholders have been replaced successfully."
+
+      # Step 7: Build the Angular application
+      - name: Build Angular App
+        run: npm run build -- --configuration production --output-path=docs --base-href /EntLib/
+
+      # Step 8: Upload build artifact
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: docs/
+
+      # Step 9: Clean workspace
+      - name: Clean workspace
+        run: |
+          rm -rf node_modules/
+          npm cache clean --force
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+
+    steps:
+      # Step 10: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 11: Install Firebase dependencies
+      - name: Install Firebase Packages
+        run: npm install firebase @angular/fire
+
+      # Step 12: Install Firebase CLI
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      # Step 13: Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --only hosting --project entertaimentlib-ad956
+
+      # Step 14: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
