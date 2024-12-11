@@ -29,7 +29,7 @@
             "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "baseHref": "EntLib",
+            "baseHref": "/EntLib/",  // Corrected to use `/EntLib/`
             "polyfills": [
               "zone.js",
               "src/polyfills.ts"
