@@ -141,6 +141,7 @@ export class RegionComponent implements OnInit
       (resMovies: Movie[]) => 
       {
         this.movies = resMovies;
+        console.log("Hello")
         this.getRegion(this.movies);
         // Initialize current index for each region
         this.regions.forEach(region => 
