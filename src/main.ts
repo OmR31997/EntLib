@@ -25,6 +25,7 @@ if (window['env']) {
   };
 }
 
+console.log(window['env']);
 console.log(environment.firebaseConfig);
 // Bootstrap the Angular app
 platformBrowserDynamic().bootstrapModule(AppModule, {
