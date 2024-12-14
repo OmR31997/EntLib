@@ -4,7 +4,8 @@ import { environment } from './environments/environment';
 
 // Check if the 'env' object is available in the window (from the injected script)
 if (window['env']) {
-  // Set the Firebase configuration from Render's environment variables
+  console.log('Environment Variables:', window['env']); // Debug log
+  
   environment.firebaseConfig = {
     apiKey: window['env'].firebaseApiKey,
     authDomain: window['env'].fireauthDomain,
@@ -16,17 +17,15 @@ if (window['env']) {
     measurementId: window['env'].firemeasurementId,
   };
 
-  // Set other API URLs or configuration values from Render's environment variables
   environment.entertaiment = {
     movieApiUrl: window['env'].movieApiUrl,
-    showApiUrl: window['env'].showApiUrl,  // Replace with dynamic value if needed
-    feedApiUrl: window['env'].feedApiUrl,  // Replace with dynamic value if needed
-    userApiUrl: window['env'].userApiUrl,  // Replace with dynamic value if needed
+    showApiUrl: window['env'].showApiUrl,
+    userApiUrl: window['env'].userApiUrl,
+    feedApiUrl: window['env'].feedApiUrl
   };
+} else {
+  console.error('Environment variables not found!');
 }
-
-console.log(window['env']);
-console.log(environment.firebaseConfig);
 // Bootstrap the Angular app
 platformBrowserDynamic().bootstrapModule(AppModule, {
   ngZoneEventCoalescing: true,
