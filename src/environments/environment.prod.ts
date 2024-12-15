@@ -1,7 +1,7 @@
-import { Environment } from "../app/Models/environment.model";
-
-export const environment:Environment = {
+export const environment = {
   production: true,
+
+  // Firebase configuration
   firebaseConfig: {
     apiKey: '',
     authDomain: '',
@@ -10,12 +10,14 @@ export const environment:Environment = {
     storageBucket: '',
     messagingSenderId: '',
     appId: '',
-    measurementId: ''
-  }, // Placeholder, fetched during runtime
+    measurementId: '',
+  },
+
+  // Other environment variables
   entertaiment: {
     movieApiUrl: '',
     showApiUrl: '',
     feedApiUrl: '',
-    userApiUrl: ''
-  }    // Placeholder, fetched during runtime
+    userApiUrl: '',
+  },
 };
