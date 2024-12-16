@@ -15,9 +15,9 @@ export const environment = {
 
   // Other environment variables
   entertaiment: {
-    movieApiUrl: '',
-    showApiUrl: '',
-    feedApiUrl: '',
-    userApiUrl: '',
+    movieApiUrl: 'https://web-api-32df.onrender.com/api/movies',
+    showApiUrl: 'https://web-api-32df.onrender.com/api/shows',
+    feedApiUrl: 'https://web-api-32df.onrender.com/api/feedbacks',
+    userApiUrl: 'https://web-api-32df.onrender.com/api'
   },
 };

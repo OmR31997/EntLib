@@ -27,6 +27,6 @@ if (window['env']) {
     };
   }
 }
-
+console.log(environment)
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));

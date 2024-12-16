@@ -14,6 +14,6 @@ export const environment = {
     movieApiUrl: 'https://web-api-32df.onrender.com/api/movies',
     showApiUrl: 'https://web-api-32df.onrender.com/api/shows',
     feedApiUrl: 'https://web-api-32df.onrender.com/api/feedbacks',
-    userApiUrl: 'https://web-api-32df.onrender.com/api',
+    userApiUrl: 'https://web-api-32df.onrender.com/api'
   }
 };
