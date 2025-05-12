@@ -12,7 +12,7 @@ export class MovieService
   apiUrl:string;
   constructor(private hClient:HttpClient) 
   {
-    this.apiUrl = environment.entertaiment.SHOW_API;
+    this.apiUrl = environment.entertaiment.MOVIE_API;
   }
 
   getMovies():Observable<Movie[]>
