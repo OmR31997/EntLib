@@ -12,7 +12,7 @@ export class ShowService {
   apiUrl:string;
   constructor(private hClient:HttpClient) 
   {
-    this.apiUrl = environment.entertaiment.showApiUrl;
+    this.apiUrl = environment.entertaiment.SHOW_API;
     this.getShows();
   }
 
