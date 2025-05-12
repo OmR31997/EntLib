@@ -13,7 +13,7 @@ export class UserService
   UserAPI?:string;
   constructor(private hClient:HttpClient) 
   { 
-    this.UserAPI = environment.entertaiment.USER_API;
+    this.UserAPI = environment.USER_API;
   }
 
 
