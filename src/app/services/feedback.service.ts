@@ -14,7 +14,7 @@ export class FeedbackService implements OnInit {
 
   constructor(private hClient: HttpClient) 
   { 
-    this.FeedAPI = environment.entertaiment.feedApiUrl;
+    this.FeedAPI = environment.entertaiment.FEED_API;
   }
 
   ngOnInit(): void {
